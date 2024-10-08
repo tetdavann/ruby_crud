@@ -1,0 +1,53 @@
+<div class="p-5">
+
+  <h1>Jobs</h1>
+  <div>
+    <div class="d-flex p-3 mb-4">
+    <strong class="w-25 fs-5 text text-center">Select only category</strong> 
+    <select class= "form-select" id="categorySelect">
+      <% @job_all.each do|job|  %>
+        <option value="<%= job.category_id %>"><%= job.category.name %></option>
+      <% end %>
+    </select>
+      <%= link_to "Filter", jobs_path(only_category: ""), class: "btn btn-primary w-25 mx-3", id: "filter_link" %>
+    </div>
+  <div>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Task</th>
+        <th>Category </th>
+        <th>Completed </th>
+        <th>Status </th>
+        <th>Actions </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @jobs.each do |job| %>
+        <tr>
+          <td><%= job.id %></td>
+          <td><%= job.title %></td>
+          <td><%= job.category.name if job.category %></td>
+          <td>
+            <%= button_to job.is_completed ? 'Mark as Incomplete' : 'Mark as Completed', 
+                  toggle_completion_job_path(job), 
+                  method: :patch, 
+                  class: job.is_completed ? 'btn btn-danger' : 'btn btn-success',
+                  data: { confirm: "Are you sure you want to change the completion status?" } %>
+          </td>
+          <td><%= job.status.humanize %></td>
+          <td>
+            <%= link_to "Show", job %> |
+            <%= link_to "Edit", edit_job_path(job), class: "btn btn-warning" %> |
+            <%= link_to "Delete", job, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= link_to "New Job", new_job_path, class: "btn btn-primary" %>
+  <%= link_to "Sort by Status Ascending", jobs_path(sort: "status", direction: "asc"),class: "btn btn-primary", id:"status_asc" %>
+  <%= link_to "Sort by Status Descending",jobs_path(sort: "status", direction: "desc"),class: "btn btn-primary",id:"status_desc" %>
+</div>

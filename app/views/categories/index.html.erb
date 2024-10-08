@@ -1,0 +1,35 @@
+
+
+<div id="categories" class="p-5">
+  <p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Categories" %>
+
+<h1>Categories</h1>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Action</th>
+    </thead>
+    
+      <% @categories.each do |category|%>
+      <tbody>
+        <td>
+          <%= category.id %>
+        </td>
+        <td><%= category.name %></td>
+        <td>
+          <p>
+           <%= link_to "See More", category %>
+          </p>
+        </td>
+        </tbody>
+      <% end %>
+    
+  </table>
+  <%= link_to "New category", new_category_path, class:"btn btn-primary color text-black" %>
+
+</div>
+
+

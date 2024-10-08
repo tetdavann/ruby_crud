@@ -1,0 +1,16 @@
+<h1><%= @job.title %></h1> 
+<p><strong>Description:</strong> <%= @job.description %></p>
+<p><strong>Category:</strong> <%= @job.category.name if @job.category %></p>
+<p><strong>Is Completed:</strong> <%= @job.is_completed ? 'Yes' : 'No' %></p>
+<p><strong>Status</strong> <td><%= @job.status.humanize %></td></p>
+<p><strong>Created At:</strong> <%= @job.created_at.strftime("%B %d, %Y") %></p>
+<p><strong>Updated At:</strong> <%= @job.updated_at.strftime("%B %d, %Y") %></p>
+
+<p style="color: green"><%= notice %></p>
+
+<div>
+  <%= link_to "Edit this job", edit_job_path(@job), class: "btn btn-primary color text-black" %> |
+  <%= link_to "Back to jobs", jobs_path, class: "btn btn-primary color text-black" %> |
+  <%= button_to "Destroy this job", @job, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger color text-black" %>
+</div>
+
